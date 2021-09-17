@@ -36,25 +36,20 @@ fun CounterRememberTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    // Remember a SystemUiController
-    val systemUiController = rememberSystemUiController()
-
-    SideEffect {
-        if (darkTheme) {
-            systemUiController.setStatusBarColor(
-                color = DarkColorPalette.primaryVariant
-            )
-        } else {
-            systemUiController.setStatusBarColor(
-                color = LightColorPalette.primaryVariant
-            )
-        }
-    }
 
     val colors = if (darkTheme) {
         DarkColorPalette
     } else {
         LightColorPalette
+    }
+
+    // Remember a SystemUiController
+    val systemUiController = rememberSystemUiController()
+
+    SideEffect {
+        systemUiController.setStatusBarColor(
+            color = colors.primaryVariant
+        )
     }
 
     MaterialTheme(
